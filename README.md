@@ -134,11 +134,11 @@ The following metrics are collected and analyzed:
 
 | Scenario | Users | Avg Response Time | P95 | Error % | Throughput |
 |----------|------:|------------------:|----:|--------:|-----------:|
-| Baseline | 5     | TBD               | TBD | TBD     | TBD        |
-| Load     | 25    | TBD               | TBD | TBD     |  TBD       |
-| Higher Load | 50 | TBD               | TBD | TBD     | TBD        |
+| Baseline | 5     | 421               | 556 | 11.94%    | 1.o1925       |
+| Load     | 25    | 414              | 556 | 9.50%    |  1.12427     |
+| Higher Load | 50 | 421             | 559 | 8.19%  | 1.28285        |
 
-> Replace `TBD` with the actual values obtained from JMeter Aggregate Report.
+
 
 ---
 
@@ -170,7 +170,21 @@ The date-based validation was replaced with validation of a stable confirmation 
 This makes the assertion reusable across different test executions.
 
 ---
+## 🔍 Key Observations
 
+- Average response time remained relatively stable across the tested load levels, ranging from 414 ms to 421 ms.
+- P95 response time remained stable between 556 ms and 559 ms as the concurrent user load increased from 5 to 50 users.
+- Throughput increased from 1.01925 requests/sec at 5 users to 1.28285 requests/sec at 50 users.
+- The overall measured error rate decreased from 11.94% at 5 users to 8.19% at 50 users.
+- Among the primary transactions, `Purchase Ticket` recorded the highest error rate across the tested scenarios and required additional investigation.
+- During investigation, the Purchase Ticket request returned HTTP 200 and a successful confirmation page, while JMeter reported assertion failures.
+- The failure was traced to a hard-coded date assertion that did not match the dynamically generated purchase date.
+- The date-based assertion was replaced with validation of the stable `Thank you for your purchase today!` confirmation message.
+- In the 50-user test, `Home Page` recorded the highest average response time at 524 ms and the highest maximum response time at 6385 ms.
+- The 50-user test showed a P99 overall response time of 842 ms, while individual transactions such as `Purchase Ticket` showed higher tail latency.
+- Overall, the tested load levels did not result in a significant increase in average or P95 response time, but the high error rate observed for the Purchase Ticket transaction indicates an area requiring further validation.
+
+- 
 ## 📊 Result Analysis
 
 The performance results from the baseline, load, and higher-load scenarios are compared to understand how response time, throughput, and error rate change as concurrent users increase.
@@ -185,4 +199,4 @@ The analysis focuses particularly on:
 
 
 
-t.png
+
