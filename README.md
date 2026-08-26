@@ -8,6 +8,13 @@ The project simulates multiple concurrent users performing an end-to-end flight 
 
 The test plan also uses CSV-based test data parameterization to simulate different source and destination cities.
 
+## 🌐 Application Under Test
+
+**BlazeDemo** — a publicly available sample flight-booking application used for performance-testing practice.
+
+Application URL: https://blazedemo.com/
+
+
 ---
 
 ## 🎯 Objectives
